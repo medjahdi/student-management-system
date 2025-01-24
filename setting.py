@@ -1,3 +1,6 @@
+"""
+Copyright (c) 2025 @medjahdi
+"""
 import mysql.connector
 from mysql.connector import Error
 import csv
@@ -18,7 +21,9 @@ DB_CONFIG = {
     'database': 'student_management'
 }
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Student info
@@ -35,7 +40,9 @@ class Student:
         self.specialization = specialization.upper()
         self.year = year
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Connect to MySQL Db
@@ -53,7 +60,9 @@ def connect_to_db():
         print(f"\033[91mError connecting to MySQL: {e}\033[0m")
         return None
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # my logo
@@ -72,14 +81,18 @@ def logo():
     print(f"\033[92m{txt1}\033[0m")
     print(f"\033[92m{txt2}\033[0m")
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # clear screen
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Load students from the database
@@ -97,7 +110,9 @@ def load_students():
         conn.close()
     return students
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Save students to the database
@@ -120,7 +135,9 @@ def save_students(students):
         cursor.close()
         conn.close()
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Validate date format
@@ -131,7 +148,9 @@ def validate_date(date_text):
     except ValueError:
         return False
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Add a new student
@@ -155,7 +174,9 @@ def add_student(students):
     students.append(student)
     print("\033[92mStudent added successfully.\033[0m")
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Delete a student by ID
@@ -169,7 +190,9 @@ def delete_student(students):
             return
     print("\033[91mStudent not found.\033[0m")
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Update student info by ID
@@ -196,7 +219,9 @@ def update_student(students):
             return
     print("\033[94mStudent not found.\033[0m")
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # print all students
@@ -214,7 +239,9 @@ def display_students(students):
             student.nationality, student.faculty, student.department, student.specialization, student.year))
         print("\033[96m" + "-"*127 + "\033[0m")
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # search for a student by ID or Name ...
@@ -237,7 +264,9 @@ def search_student(students):
     else:
         print("\033[93mNo matching students found.\033[0m")
 
-
+"""
+Copyright (c) 2025 @medjahdi
+"""
 
 
 # Export to CSV
