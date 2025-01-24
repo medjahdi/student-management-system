@@ -2,7 +2,6 @@ import mysql.connector
 from mysql.connector import Error
 import csv
 import os
-from termcolor import colored
 from datetime import datetime
 
 
@@ -19,6 +18,9 @@ DB_CONFIG = {
     'database': 'student_management'
 }
 
+
+
+
 # Student info
 class Student:
     def __init__(self, id, name, surname, dob, address, nationality, faculty, department, specialization, year):
@@ -33,6 +35,9 @@ class Student:
         self.specialization = specialization.upper()
         self.year = year
 
+
+
+
 # Connect to MySQL Db
 def connect_to_db():
     try:
@@ -45,31 +50,36 @@ def connect_to_db():
         )
         return conn
     except Error as e:
-        print(colored(f"Error connecting to MySQL: {e}", 'red'))
+        print(f"\033[91mError connecting to MySQL: {e}\033[0m")
         return None
+
+
 
 
 # my logo
 def logo():
-    txt="""
+    txt = """
     ███╗   ██╗ ██████╗ ██╗   ██╗ █████╗     ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
     ████╗  ██║██╔═══██╗██║   ██║██╔══██╗    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝██╔══██╗
     ██╔██╗ ██║██║   ██║██║   ██║███████║    ██╔████╔██║███████║██╔██╗ ██║███████║██║  ███╗█████╗  ██████╔╝
     ██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══██║    ██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║██║   ██║██╔══╝  ██╔══██╗
     ██║ ╚████║╚██████╔╝ ╚████╔╝ ██║  ██║    ██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║╚██████╔╝███████╗██║  ██║
     ╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚═╝  ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
-                                                                                                                                                         
     """
-    txt1="This is a simple Student Management System that allows you to manage student information...."
-    txt2="      Developed by @medjahdi      |      Reach me out on : https://medjahdi.github.io       "
-    print(colored(txt, 'cyan'))
-    print(colored(txt1, 'green'))
-    print(colored(txt2, 'green'))
+    txt1 = "This is a simple Student Management System that allows you to manage student information...."
+    txt2 = "      Developed by @medjahdi      |      Reach me out on : https://medjahdi.github.io       "
+    print(f"\033[96m{txt}\033[0m")
+    print(f"\033[92m{txt1}\033[0m")
+    print(f"\033[92m{txt2}\033[0m")
+
+
 
 
 # clear screen
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+
 
 
 # Load students from the database
@@ -86,6 +96,9 @@ def load_students():
         cursor.close()
         conn.close()
     return students
+
+
+
 
 # Save students to the database
 def save_students(students):
@@ -107,6 +120,9 @@ def save_students(students):
         cursor.close()
         conn.close()
 
+
+
+
 # Validate date format
 def validate_date(date_text):
     try:
@@ -115,15 +131,18 @@ def validate_date(date_text):
     except ValueError:
         return False
 
+
+
+
 # Add a new student
 def add_student(students):
-    print(colored("\nAdd Student", 'green'))
+    print("\033[92m\nAdd Student\033[0m")
     id = input("Enter Student ID: ")
     name = input("Enter Name: ").upper()
     surname = input("Enter Surname: ").upper()
     dob = input("Enter Date of Birth (YYYY-MM-DD): ")
     while not validate_date(dob):
-        print(colored("Invalid date format. Please enter the date in YYYY-MM-DD format.", 'red'))
+        print("\033[91mInvalid date format. Please enter the date in YYYY-MM-DD format.\033[0m")
         dob = input("Enter Date of Birth (YYYY-MM-DD): ")
     address = input("Enter Address: ").upper()
     nationality = input("Enter Nationality: ").upper()
@@ -134,61 +153,73 @@ def add_student(students):
 
     student = Student(id, name, surname, dob, address, nationality, faculty, department, specialization, year)
     students.append(student)
-    print(colored("Student added successfully.", 'green'))
+    print("\033[92mStudent added successfully.\033[0m")
+
+
+
 
 # Delete a student by ID
 def delete_student(students):
-    print(colored("\n Delete Student", 'red'))
+    print("\033[91m\nDelete Student\033[0m")
     id = input("Enter Student ID to delete: ")
     for student in students:
         if student.id == id:
             students.remove(student)
-            print(colored("Student deleted successfully.", 'red'))
+            print("\033[91mStudent deleted successfully.\033[0m")
             return
-    print(colored("Student not found.", 'red'))
+    print("\033[91mStudent not found.\033[0m")
+
+
+
 
 # Update student info by ID
 def update_student(students):
-    print(colored("\nUpdate Student", 'blue'))
+    print("\033[94m\nUpdate Student\033[0m")
     id = input("Enter Student ID to update: ")
     for student in students:
         if student.id == id:
-            print("Enter new details ( or press Enter to keep current value ): ")
-            student.name = input(f"Name [ {student.name} ]: ").upper() or student.name
-            student.surname = input(f"Surname [ {student.surname} ]: ").upper() or student.surname
-            dob = input(f"Date of Birth [ {student.dob} ]: ") or student.dob
+            print("Enter new details (or press Enter to keep current value): ")
+            student.name = input(f"Name [{student.name}]: ").upper() or student.name
+            student.surname = input(f"Surname [{student.surname}]: ").upper() or student.surname
+            dob = input(f"Date of Birth [{student.dob}]: ") or student.dob
             while not validate_date(dob):
-                print(colored("Invalid date format. Please enter the date in YYYY-MM-DD format.", 'red'))
-                dob = input(f"Date of Birth [ {student.dob} ]: ") or student.dob
+                print("\033[91mInvalid date format. Please enter the date in YYYY-MM-DD format.\033[0m")
+                dob = input(f"Date of Birth [{student.dob}]: ") or student.dob
             student.dob = dob
-            student.address = input(f"Address [ {student.address} ]: ").upper() or student.address
-            student.nationality = input(f"Nationality [ {student.nationality} ]: ").upper() or student.nationality
-            student.faculty = input(f"Faculty [ {student.faculty} ]: ").upper() or student.faculty
-            student.department = input(f"Department [ {student.department} ]: ").upper() or student.department
-            student.specialization = input(f"Specialization [ {student.specialization} ]: ").upper() or student.specialization
+            student.address = input(f"Address [{student.address}]: ").upper() or student.address
+            student.nationality = input(f"Nationality [{student.nationality}]: ").upper() or student.nationality
+            student.faculty = input(f"Faculty [{student.faculty}]: ").upper() or student.faculty
+            student.department = input(f"Department [{student.department}]: ").upper() or student.department
+            student.specialization = input(f"Specialization [{student.specialization}]: ").upper() or student.specialization
             student.year = input(f"Year [{student.year}]: ") or student.year
-            print(colored("Student updated successfully.", 'blue'))
+            print("\033[94mStudent updated successfully.\033[0m")
             return
-    print(colored("Student not found.", 'blue'))
+    print("\033[94mStudent not found.\033[0m")
+
+
+
 
 # print all students
 def display_students(students):
-    print(colored("\nAll Students"+ "-"*115, 'cyan'))
+    print("\033[96m\nAll Students" + "-"*115 + "\033[0m")
     if not students:
         print("No students to display.")
         return
     print("{:<5} {:<10} {:<10} {:<12} {:<20} {:<12} {:<10} {:<12} {:<15} {:<5}".format(
         "ID", "Name", "Surname", "DOB", "Address", "Nationality", "Faculty", "Department", "Specialization", "Year"))
-    print(colored("*"*127, 'cyan'))
+    print("\033[96m" + "*"*127 + "\033[0m")
     for student in students:
         print("{:<5} {:<10} {:<10} {:<12} {:<20} {:<12} {:<10} {:<12} {:<15} {:<5}".format(
             student.id, student.name, student.surname, str(student.dob), student.address,
             student.nationality, student.faculty, student.department, student.specialization, student.year))
-        print(colored("-"*127, 'cyan'))
+        print("\033[96m" + "-"*127 + "\033[0m")
+
+
+
 
 # search for a student by ID or Name ...
 def search_student(students):
-    print(colored("\nSearch Student", 'yellow'))
+    print("\033[93m\nSearch Student\033[0m")
     search_term = input("Enter Student ID or Name to search: ")
     results = []
     for student in students:
@@ -197,14 +228,17 @@ def search_student(students):
     if results:
         print("{:<5} {:<10} {:<10} {:<12} {:<20} {:<12} {:<10} {:<12} {:<15} {:<5}".format(
             "ID", "Name", "Surname", "DOB", "Address", "Nationality", "Faculty", "Department", "Specialization", "Year"))
-        print(colored("*"*127, 'cyan'))
+        print("\033[96m" + "*"*127 + "\033[0m")
         for student in results:
             print("{:<5} {:<10} {:<10} {:<12} {:<20} {:<12} {:<10} {:<12} {:<15} {:<5}".format(
                 student.id, student.name, student.surname, str(student.dob), student.address,
                 student.nationality, student.faculty, student.department, student.specialization, student.year))
-            print(colored("-"*127, 'cyan'))
+            print("\033[96m" + "-"*127 + "\033[0m")
     else:
-        print(colored("No matching students found.", 'yellow'))
+        print("\033[93mNo matching students found.\033[0m")
+
+
+
 
 # Export to CSV
 def export_to_csv(students, filename='students.csv'):
@@ -216,6 +250,4 @@ def export_to_csv(students, filename='students.csv'):
                 student.id, student.name, student.surname, student.dob, student.address,
                 student.nationality, student.faculty, student.department, student.specialization, student.year
             ])
-    print(colored(f"Data exported to {filename}", 'green'))
-
-
+    print(f"\033[92mData exported to {filename}\033[0m")
