@@ -1,7 +1,8 @@
 import hashlib
 from termcolor import colored
 
-# pass is nova
+
+
 HASHED_PASSWORD = "19e05df6b2e5fb94f3ee7eed2c02d340a1128a00231f5f6949641a143ab3b57a"
 
 def login():
