@@ -1,3 +1,6 @@
+"""
+Copyright (c) 2025 @medjahdi
+"""
 import hashlib
 from termcolor import colored
 
@@ -25,6 +28,12 @@ def login():
             return True
         else:
             attempts -= 1
+
+
+
+            """
+Copyright (c) 2025 @medjahdi
+"""
             if attempts > 0:
                 print(colored(f"Invalid password. {attempts} attempts remaining.", 'red'))
             else:
