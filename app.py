@@ -1,3 +1,6 @@
+"""
+Copyright (c) 2025 @medjahdi
+"""
 import mysql.connector
 from mysql.connector import Error
 from login import login
@@ -74,3 +77,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
+Copyright (c) 2025 @medjahdi
+"""
